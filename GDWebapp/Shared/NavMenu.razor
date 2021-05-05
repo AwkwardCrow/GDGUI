@@ -1,0 +1,14 @@
+﻿<MudDrawer @bind-Open="SidebarOpen" Elevation="1">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h5" Color="Color.Primary" Style="margin-top:10px; margin-left:15px;">GD Grid</MudText>
+    </MudDrawerHeader>
+    <MudNavMenu>
+        <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Filled.Home">Home</MudNavLink>
+        <MudNavLink Href="/fetchcarddata" Icon="@Icons.Filled.Storage">FetchCardData</MudNavLink>
+    </MudNavMenu>
+</MudDrawer>
+
+@code {
+    [Parameter]
+    public bool SidebarOpen { get; set; }
+}

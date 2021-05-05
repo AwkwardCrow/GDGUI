@@ -1,0 +1,74 @@
+﻿<MudContainer>
+    <MudContainer>
+        <MudIcon Icon="@Icons.Material.Filled.ContentCopy" Title="Cards" />
+        Cards Remaining: @Deck.CardsRemaining()<MudDivider Vertical="true" /> Cards Flipped: @Deck.CardsDrawn()
+    </MudContainer>
+    <MudGrid>
+        <MudItem xs="3">
+            <MudIconButton Class="flex-grow-0 pa-0 mx-2" Icon=@Icons.Material.Filled.ChevronLeft Size="Size.Large" Title="Back" @onclick="@GetPreviousCard" />
+        </MudItem>
+        <MudItem xs="6">
+            <MudCard Class="flex-grow-0 py-4 px-6 mx-4 rounded" Elevation="10" @onclick="@GetNextCard">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@(Deck?.CurrentCard?.Name ?? "No Card Data")</MudText>
+                        <MudDivider />
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <!--<MudCardMedia Image= @(CurrentCard?.Image ?? "No Card Data") Height="200" />-->
+                <MudCardContent>
+                    <MudText>@(Deck?.CurrentCard?.Description ?? "No Card Data")</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="3">
+            <MudIconButton Class="flex-grow-0 pa-0 mx-2" Icon=@Icons.Material.Filled.ChevronRight Size="Size.Large" Title="Next" @onclick="@GetNextCard" />
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code{
+
+  public GridDraftDeckObject Deck { get; private set; }
+
+  [Parameter]
+  public IList<GridDraftDeckData> Cards {get; set;}
+
+  protected override void OnInitialized()
+  {
+      Deck = new GridDraftDeckObject(new List<GridDraftDeckData>());
+  }
+
+  public void Shuffle()
+  {
+      Deck = new GridDraftDeckObject(Cards);
+      GetNextCard();
+  }
+
+  public void AddCards(IList<GridDraftDeckData> cards)
+  {
+      if (cards == null || cards.Count < 1)
+          return;
+
+      if (Cards == null || cards.Count < 1)
+          Cards = cards;
+
+      else
+      {
+          foreach(var card in cards)
+          {
+              Cards.Add(card);
+          }
+      }
+  }
+
+  public void GetNextCard()
+  {
+      Deck.DrawCard();
+  }
+
+  public void GetPreviousCard()
+  {
+      Deck.GetPreviousCard();
+  }
+}

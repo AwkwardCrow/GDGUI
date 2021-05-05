@@ -1,0 +1,36 @@
+﻿@inject GridDraftDeckAPI GridDraftDeckService
+
+<MudText Align="Align.Center" Typo="Typo.h3" Color="Color.Primary">
+    Welcome to the Crazy Grid Draft!!
+</MudText>
+<MudPaper Elevation="3" Class="my-5 py-5">
+    <MudText Align="Align.Center">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@StartGame">Start New Game</MudButton>
+        <MudContainer>
+            <GridDraftDeck Cards="_cards" @ref="deck" />
+        </MudContainer>
+    </MudText>
+</MudPaper>
+
+@code
+{
+
+  public bool _gameStarted = false;
+  public IList<GridDraftDeckData> _cards { get; set; }
+  GridDraftDeck deck;
+  public async void StartGame()
+  {
+      //if game not started, start
+      if (!_gameStarted)
+      {
+          _gameStarted = true;
+          _cards = await GridDraftDeckService.GetCardData();
+          deck.AddCards(_cards);
+          deck.Shuffle();
+      }
+      else
+      {
+          deck.Shuffle();
+      }
+  }
+}

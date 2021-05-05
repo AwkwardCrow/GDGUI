@@ -1,0 +1,40 @@
+﻿@*@page "/fetchcarddata"
+
+@using GDWebapp.Data
+@inject GridDraftDeckAPI GridDraftDeckService
+
+<h1>Grid Draft Cards</h1>
+
+@if (draftDeckCards == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var draftDeckCard in draftDeckCards)
+            {
+                <tr>
+                  <GridDraftCard Card="draftDeckCard" />
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+  private IList<GridDraftDeckData> draftDeckCards;
+
+  protected override async Task OnInitializedAsync()
+  {
+      draftDeckCards = await GridDraftDeckService.GetCardData();
+  }
+}*@

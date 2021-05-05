@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>51d48a7b-b3de-4428-9c25-451750ef6115</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="credentials.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="credentials.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.51.0.2300" />
+    <PackageReference Include="Google.Apis.Sheets.v4" Version="1.51.0.2272" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
+    <PackageReference Include="MudBlazor" Version="5.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="gdgui-312202-9286d0d3922a.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
